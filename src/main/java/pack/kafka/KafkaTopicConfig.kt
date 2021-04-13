@@ -14,8 +14,11 @@ class KafkaTopicConfig {
     @Value(value = "\${kafka.bootstrapAddress}")
     private lateinit var bootstrapAddress: String
 
-    @Value(value = "\${kafka.topicName}")
-    private lateinit var topicName: String
+    @Value(value = "\${kafka.sourceTopicName}")
+    private lateinit var sourceTopicName: String
+
+    @Value(value = "\${kafka.targetTopicName}")
+    private lateinit var targetTopicName: String
 
     @Bean
     fun kafkaAdmin(): KafkaAdmin {
@@ -26,6 +29,11 @@ class KafkaTopicConfig {
 
     @Bean
     fun topic1(): NewTopic {
-        return NewTopic(topicName, 1, 1.toShort())
+        return NewTopic(sourceTopicName, 1, 1.toShort())
+    }
+
+    @Bean
+    fun topic2(): NewTopic {
+        return NewTopic(targetTopicName, 1, 1.toShort())
     }
 }

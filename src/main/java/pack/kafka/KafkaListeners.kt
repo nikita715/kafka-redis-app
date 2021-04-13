@@ -12,7 +12,7 @@ class KafkaListeners {
     @Autowired
     private lateinit var cityRepository: CityRepository
 
-    @KafkaListener(topics = ["testTopic"], groupId = "testGroup")
+    @KafkaListener(topics = ["testTopicTarget"], containerFactory = "kafkaListenerContainerFactory")
     fun listenGroupFoo(message: City) {
         cityRepository.save(message)
         println("Received Message in group testGroup: $message")

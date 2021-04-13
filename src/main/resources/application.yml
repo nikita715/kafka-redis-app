@@ -1,7 +1,9 @@
 kafka:
   bootstrapAddress: localhost:9092
   groupName: testGroup
-  topicName: testTopic
+  sourceTopicName: testTopicSource
+  targetTopicName: testTopicTarget
+
 redis:
   host: localhost
   port: 6379

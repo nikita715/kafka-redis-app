@@ -5,9 +5,14 @@ import pack.model.City
 
 class CityDeserializer : Deserializer<City> {
 
-    override fun deserialize(topic: String?, data: ByteArray?): City {
-        val dataParts = String(data!!).split(",")
-        return City("1", dataParts[0].split(":")[1], dataParts[1].split(":")[1])
+    override fun deserialize(topic: String?, data: ByteArray?): City? {
+        return try {
+            val dataParts = String(data!!).split(",")
+            City("1", dataParts[0].split(":")[1], dataParts[1].split(":")[1])
+        } catch (e: Exception) {
+            println(e)
+            null
+        }
     }
 
 }

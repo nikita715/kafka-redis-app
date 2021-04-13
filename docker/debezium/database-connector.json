@@ -1,0 +1,16 @@
+{
+  "name": "pg-database-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "debezium_postgres_1",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "MainDatabase",
+    "database.server.name": "pg-docker",
+    "database.whitelist": "MainDatabase",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "database.history.kafka.topic": "schema-changes-pg-database"
+  }
+}

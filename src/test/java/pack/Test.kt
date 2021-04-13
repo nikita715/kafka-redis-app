@@ -24,7 +24,7 @@ class Test {
     @Autowired
     private lateinit var cityRepository: CityRepository
 
-    @Value(value = "\${kafka.topicName}")
+    @Value(value = "\${kafka.sourceTopicName}")
     private lateinit var topicName: String
 
     @Test
@@ -34,9 +34,13 @@ class Test {
 
         kafkaTemplate.send(topicName, message)
 
-        await.pollInterval(Duration.ofSeconds(1)).atMost(Duration.ofSeconds(5)).until {
-            cityRepository.findAll().toList()[0]?.equals(expectedCity) ?: false
-        }
+        cityRepository.deleteAll()
+
+        await.atMost(Duration.ofSeconds(12))
+            .with().pollInterval(Duration.ofSeconds(3))
+            .until {
+                cityRepository.findAll().toList()[0]?.equals(expectedCity) ?: false
+            }
 
     }
 }
